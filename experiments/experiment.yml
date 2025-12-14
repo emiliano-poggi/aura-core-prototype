@@ -1,0 +1,12 @@
+experiment:
+  name: soc_test_001
+  description: >
+    First prototype experiment.
+    Minimal stream of consciousness fragment.
+
+input:
+  source: file
+  path: experiments/sample_soc.txt
+
+interpretation:
+  mode: structured   # structured | unstructured
