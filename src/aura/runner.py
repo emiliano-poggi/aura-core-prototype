@@ -1,3 +1,4 @@
+from aura.llm.mock_provider import MockCognitiveEngine
 from aura.config import load_config, ConfigError
 from aura.utils.io import load_text_file, InputError
 from aura.pipeline.surface import surface_analysis
@@ -18,7 +19,7 @@ def run_experiment(config_path: str) -> None:
     except InputError as e:
         print(f"[ERROR] {e}")
         return
-        
+
     print()
     print("Experiment loaded successfully")
     print("-" * 29)
@@ -33,6 +34,23 @@ def run_experiment(config_path: str) -> None:
     print(f"Interpretation mode: {interpretation['mode']}")
     print(f"Input text length: {len(text)} characters")
     print()
+
+    # Create cognitive engine (one per run)
+    engine = MockCognitiveEngine()
+
+    debug_result = engine.process(
+        text=text,
+        task="debug: verify cognitive engine wiring",
+        context={
+            "experiment": experiment["name"],
+            "mode": interpretation["mode"],
+        }
+    )
+
+    print()
+    print("Cognitive engine (mock) check")
+    print("-" * 27)
+    print(debug_result["text"])
 
     surface = surface_analysis(text)
     print("Surface analysis")
