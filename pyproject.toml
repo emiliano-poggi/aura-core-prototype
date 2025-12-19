@@ -10,7 +10,8 @@ requires-python = ">=3.9"
 
 dependencies = [
   "pyyaml",
-  "click"
+  "click",
+  "openai>=1.0.0"
 ]
 
 [project.scripts]
