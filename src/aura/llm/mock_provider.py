@@ -19,11 +19,13 @@ class MockCognitiveEngine(CognitiveEngine):
         word_count = len(text.split())
 
         if task.startswith("semantic:"):
-                # Deterministic, fake themes
-                themes = []
-                if word_count > 0:
-                    themes = ["memory", "fragmentation"]
-                return {
+            # Deterministic, fake themes
+            themes = []
+
+            if word_count > 0:
+                themes = ["memory", "fragmentation"]
+
+            return {
                 "text": (
                     "This mock semantic analysis identifies recurring "
                     "abstract concepts based on simple heuristics."
@@ -36,6 +38,31 @@ class MockCognitiveEngine(CognitiveEngine):
                     "deterministic": True,
                 },
             }
+
+        if task.startswith("inference:"):
+            # Deterministic mock inference
+            entities = []
+            events = []
+
+            if text:
+                entities = ["narrator"]
+                events = ["recollection", "internal monologue"]
+
+            return {
+                "text": (
+                    "This mock inference identifies implied entities and "
+                    "events based on minimal assumptions."
+                ),
+                "data": {
+                    "entities": entities,
+                    "events": events,
+                },
+                "meta": {
+                    "engine": "mock",
+                    "deterministic": True,
+                },
+            }
+
 
         return {
             "text": (

@@ -3,6 +3,7 @@ from aura.config import load_config, ConfigError
 from aura.utils.io import load_text_file, InputError
 from aura.pipeline.surface import surface_analysis
 from aura.pipeline.semantic import semantic_analysis
+from aura.pipeline.inference import inference_analysis
 
 def run_experiment(config_path: str) -> None:
     try:
@@ -53,6 +54,7 @@ def run_experiment(config_path: str) -> None:
     print("-" * 27)
     print(debug_result["text"])
 
+    # WIRE SURFACE AN.
     surface = surface_analysis(text)
     print()
     print("Surface analysis")
@@ -71,6 +73,7 @@ def run_experiment(config_path: str) -> None:
         f"{surface['fragmentation']['newline_density']}"
     )
 
+    # WIRE SEMANTIC AN.
     semantic = semantic_analysis(
         engine=engine,
         text=text,
@@ -88,3 +91,30 @@ def run_experiment(config_path: str) -> None:
             print(f"- {t}")
     else:
         print("Themes: none detected")
+
+    # WIRE INFERENCE AN.
+    inference = inference_analysis(
+        engine=engine,
+        text=text,
+        interpretation_mode=interpretation["mode"],
+        experiment_name=experiment["name"],
+    )
+
+    print()
+    print("Inference analysis")
+    print("-" * 18)
+    print(inference["explanation"])
+
+    if inference["entities"]:
+        print("Entities:")
+        for e in inference["entities"]:
+            print(f"- {e}")
+    else:
+        print("Entities: none detected")
+
+    if inference["events"]:
+        print("Events:")
+        for ev in inference["events"]:
+            print(f"- {ev}")
+    else:
+        print("Events: none detected")
