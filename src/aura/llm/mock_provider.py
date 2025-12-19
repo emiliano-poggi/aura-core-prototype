@@ -18,6 +18,25 @@ class MockCognitiveEngine(CognitiveEngine):
         text_length = len(text)
         word_count = len(text.split())
 
+        if task.startswith("semantic:"):
+                # Deterministic, fake themes
+                themes = []
+                if word_count > 0:
+                    themes = ["memory", "fragmentation"]
+                return {
+                "text": (
+                    "This mock semantic analysis identifies recurring "
+                    "abstract concepts based on simple heuristics."
+                ),
+                "data": {
+                    "themes": themes,
+                },
+                "meta": {
+                    "engine": "mock",
+                    "deterministic": True,
+                },
+            }
+
         return {
             "text": (
                 "This is a mock cognitive response. "

@@ -2,6 +2,7 @@ from aura.llm.mock_provider import MockCognitiveEngine
 from aura.config import load_config, ConfigError
 from aura.utils.io import load_text_file, InputError
 from aura.pipeline.surface import surface_analysis
+from aura.pipeline.semantic import semantic_analysis
 
 def run_experiment(config_path: str) -> None:
     try:
@@ -53,6 +54,7 @@ def run_experiment(config_path: str) -> None:
     print(debug_result["text"])
 
     surface = surface_analysis(text)
+    print()
     print("Surface analysis")
     print("-" * 16)
     print(f"Characters: {surface['length']['characters']}")
@@ -68,3 +70,21 @@ def run_experiment(config_path: str) -> None:
         f"Newline density: "
         f"{surface['fragmentation']['newline_density']}"
     )
+
+    semantic = semantic_analysis(
+        engine=engine,
+        text=text,
+        interpretation_mode=interpretation["mode"],
+        experiment_name=experiment["name"],
+    )
+    print()
+    print("Semantic analysis")
+    print("-" * 16)
+    print(semantic["explanation"])
+
+    if semantic["themes"]:
+        print("Themes:")
+        for t in semantic["themes"]:
+            print(f"- {t}")
+    else:
+        print("Themes: none detected")
