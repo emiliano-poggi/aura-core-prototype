@@ -1,9 +1,10 @@
-from aura.llm.mock_provider import MockCognitiveEngine
+from aura.llm.factory import create_cognitive_engine
 from aura.config import load_config, ConfigError
 from aura.utils.io import load_text_file, InputError
 from aura.pipeline.surface import surface_analysis
 from aura.pipeline.semantic import semantic_analysis
 from aura.pipeline.inference import inference_analysis
+
 
 def run_experiment(config_path: str) -> None:
     try:
@@ -37,8 +38,8 @@ def run_experiment(config_path: str) -> None:
     print(f"Input text length: {len(text)} characters")
     print()
 
-    # Create cognitive engine (one per run)
-    engine = MockCognitiveEngine()
+    # ENGINE CREATION
+    engine = create_cognitive_engine()
 
     debug_result = engine.process(
         text=text,
