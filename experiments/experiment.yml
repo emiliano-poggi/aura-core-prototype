@@ -10,3 +10,7 @@ input:
 
 interpretation:
   mode: structured   # structured | unstructured
+
+llm:
+  provider: local
+  endpoint: http://localhost:11434/api/generate
