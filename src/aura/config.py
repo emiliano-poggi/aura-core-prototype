@@ -1,5 +1,6 @@
 from pathlib import Path
 import yaml
+import os
 
 class ConfigError(Exception):
     pass
@@ -61,3 +62,23 @@ def _validate_config(cfg: dict) -> None:
         raise ConfigError(
             "interpretation.mode must be either 'structured' or 'unstructured'"
         )
+
+    # ---- LLM ----
+    # US 3.5
+    llm_cfg = cfg.get("llm")
+    if llm_cfg is not None:
+        if not isinstance(llm_cfg, dict):
+            raise ConfigError("llm section must be a mapping")
+
+        provider = llm_cfg.get("provider")
+        if provider != "local":
+            raise ConfigError("llm.provider must be 'local' in v0.2")
+        else:
+            os.environ["CONFIG_LLM_PROVIDER"] = llm_cfg.get("provider", "")
+
+        endpoint = llm_cfg.get("endpoint")
+        if not isinstance(endpoint, str) or not endpoint.startswith("http"):
+            raise ConfigError("llm.endpoint must be a valid HTTP URL")
+        else:
+            os.environ["CONFIG_LLM_ENDPOINT"] = llm_cfg.get("endpoint", "")
+
