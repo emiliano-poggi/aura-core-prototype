@@ -41,9 +41,11 @@ def run_experiment(config_path: str) -> None:
     # ENGINE CREATION
     engine = create_cognitive_engine()
 
-    debug_result = engine.process(
+
+    # FREE-FORM ANSWER
+    freeform_result = engine.process(
         text=text,
-        task="debug: verify cognitive engine wiring",
+        task="Freeform: raw cognitive engine response (diagnostic)",
         context={
             "experiment": experiment["name"],
             "mode": interpretation["mode"],
@@ -51,9 +53,9 @@ def run_experiment(config_path: str) -> None:
     )
 
     print()
-    print("Cognitive engine (mock) check")
+    print("Cognitive engine answer (free-form)")
     print("-" * 27)
-    print(debug_result["text"])
+    print(freeform_result["text"])
 
     # WIRE SURFACE AN.
     surface = surface_analysis(text)
@@ -84,8 +86,9 @@ def run_experiment(config_path: str) -> None:
     print()
     print("Semantic analysis")
     print("-" * 16)
+    print("Semantic answer (unparsed):")
     print(semantic["explanation"])
-
+    print("Parsed structured data (strict):")
     if semantic["themes"]:
         print("Themes:")
         for t in semantic["themes"]:
@@ -104,8 +107,10 @@ def run_experiment(config_path: str) -> None:
     print()
     print("Inference analysis")
     print("-" * 18)
+    print("Inference answer (unparsed):")
     print(inference["explanation"])
 
+    print("Parsed structured data (strict):")
     if inference["entities"]:
         print("Entities:")
         for e in inference["entities"]:
