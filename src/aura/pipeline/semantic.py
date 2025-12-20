@@ -8,7 +8,7 @@ def semantic_analysis(
     interpretation_mode: str,
     experiment_name: str ) -> Dict[str, Any]:
     """
-    Minimal semantic analysis using the cognitive engine (mock).
+    Minimal semantic analysis using the cognitive engine.
     Focus: themes only.
     """
 

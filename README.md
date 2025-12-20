@@ -3,63 +3,43 @@
 
 This repository contains the **first working prototype** of the A.U.R.A. framework.
 
-A.U.R.A. is a research-oriented system designed to analyze **stream of consciousness** narratives and other non-linear texts, in order to study how Large Language Models (LLMs) infer meaning, structure, and “reality” from fragmented input.
+A.U.R.A. is a research-oriented system designed to analyze through AI complex language structures based on **stream of consciousness** narratives and other non-linear texts, in order to study how Large Language Models (LLMs) infer meaning, structure, and “reality” from fragmented input.
 
 This prototype focuses on delivering a **minimal end-to-end pipeline**:
 - A Python CLI (`aura`)  
 - YAML-based experiment configuration  
-- Pluggable LLM providers (OpenAI + mock)  
+- Pluggable LLM providers (Mock, OpenAI, local provider like Ollama)  
 - A minimal analytical pipeline:
   - Surface analysis
   - Semantic analysis
   - Inference / world-model reconstruction
-- Structured JSON outputs
-- Token-budget awareness (basic)
+- Unparsed AI console responses
+- Structured (parsed by AURA) JSON console responses
+- Prioritizes **clarity and research integrity** over performance or productization
+
+⚠️ **Important**
+This repository is intentionally **frozen at v0.2** and serves as a **reference implementation**.
+Active development continues in a separate repository (see `aura-core`).
 
 ---
 
-## Usage
+## Behavior and Usage
 
-See [AURA CORE PROTOTYPE v0.1](https://github.com/emiliano-poggi/aura-core-prototype/wiki/AURA-CORE-PROTOTYPE-v0.1)
+See [AURA CORE PROTOTYPE v0.2](https://github.com/emiliano-poggi/aura-core-prototype/wiki/AURA-CORE-PROTOTYPE-v0.2)
 
 ---
 
 ## Releases
 
-### v0.1 - Initial prototype release of Artificial Ubiquitous Reality Analysis (A.U.R.A.)  
-
-Features:
-- Installable CLI-based prototype (aura)
-- YAML-driven experiment configuration
-- Narrative text loading from external files
-- Deterministic surface analysis
-- Semantic and inference analysis via a cognitive engine abstraction
-- Mock cognitive engine (default)
-- Optional OpenAI-backed cognitive engine via environment variable
-- Automatic fallback to mock engine when no API key is present
-
-See also:
-- [milestone 0.1.*](https://github.com/emiliano-poggi/aura-core-prototype/milestone/1?closed=1) for the list of closed stories.
-- [Wiki AURA CORE PROTOTYPE v0.1](https://github.com/emiliano-poggi/aura-core-prototype/wiki/AURA-CORE-PROTOTYPE-v0.1)] for usage.
+- [0.2](https://github.com/emiliano-poggi/aura-core-prototype/milestone/2?closed=2)
+- [0.1](https://github.com/emiliano-poggi/aura-core-prototype/milestone/1?closed=1)
 
 ---
 
 ## Roadmap
 
-### v0.2 - Local LLM provider support
+- Prototype complete at **v0.2**
+- No further features planned in this repository
+- Code preserved for reference, comparison, and documentation
 
-- The next version will focus on local LLM provider support, enabling fully offline and zero-cost cognitive analysis.
-- See [milestone 0.2.*](https://github.com/emiliano-poggi/aura-core-prototype/milestone/2) for the list of related stories. 
-
----
-
-## AURA Repository Model
-
-- `src/aura/`: Core sources
-- `src/aura/llm`: Congnitive engine providers
-- `src/aura/pipeline`: The analytical pipeline
-- `src/aura/utils`: General utilities
-- `src/aura/runner.py`: The runner of the experiments
-- `src/aura/config.py`: Configuration
-- `src/aura/cli.py`: Click cli interface
-- `experiments/`: Example experiments and texts
+Future development continues in **`aura-core`**, which reimplements validated concepts in a clean, long-term codebase.
